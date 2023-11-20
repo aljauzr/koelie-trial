@@ -1,6 +1,6 @@
 import Kuli from "../models/model_kuli.js";
 
-export const getAllKuli = async (res) => {
+export const getAllKuli = async (req, res) => {
   try {
     const kuli = await Kuli.findAll();
     res.status(200).json(kuli);
