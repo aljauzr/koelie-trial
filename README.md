@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="img/eventmu.png" alt="Logo" height="180" />
+  <img src="img/logo.jpg" alt="Logo" height="180" />
 </p>
 
-<h1 align="center">Event.mu Web Service</h1>
+<h1 align="center">Koelie Web Service</h1>
 
 Lorem ipsum dolor sit amet.
 
@@ -19,22 +19,11 @@ Services available:
   <pre>GET  /users</pre>
   <pre>GET  /users/{user_id}</pre>
 
-- Events
-  <pre>GET  /events</pre>
-  <pre>GET  /events/{event_id}</pre>
+- Kuli
+  <pre>GET  /kuli</pre>
+  <pre>GET  /kuli/{kuli_id}</pre>
 
-- Ratings
-  <pre>GET  /ratings</pre>
-  <pre>GET  /ratings/{rating_id}</pre>
-  <pre>GET  /events/{event_id}/ratings</pre>
-  <pre>GET  /users/{user_id}/ratings</pre>
-  <pre>POST /ratings</pre>
-  <pre>DEL  /ratings/{rating_id}</pre>
-
-- User Likes
-  <pre>GET  /users/{user_id}/likes</pre>
-  <pre>POST /users/{user_id}/likes</pre>
-  <pre>DEL  /users/{user_id}/likes/{event_id}</pre>
-
-- Recommendation Results
-  <pre>GET  /users/{user_id}/recommendation-results</pre>
+- User Suka
+  <pre>GET  /users/{user_id}/disukai</pre>
+  <pre>POST /users/{user_id}/disukai</pre>
+  <pre>DEL  /users/{user_id}/disukai/{kuli_id}</pre>
