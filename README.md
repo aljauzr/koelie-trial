@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="img/logo.jpg" alt="Logo" height="180" />
-</p>
-
 <h1 align="center">Koelie Web Service</h1>
 
 Lorem ipsum dolor sit amet.
