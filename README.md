@@ -6,7 +6,7 @@
 
 Lorem ipsum dolor sit amet.
 
-> Base url of this service is: http://localhost:8080/
+> Base URL of this service is: http://localhost:8080/
 
 Services available:
 
