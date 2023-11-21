@@ -6,6 +6,10 @@ import router from "./routes/routes.js";
 dotenv.config();
 const app = express();
 
+app.get('/', (req, res) => {
+    res.status(200).send({ message: 'Koelie Web Service' })
+})
+
 try {
     await db.authenticate();
     console.log('Database Connected');
