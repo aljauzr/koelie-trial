@@ -112,26 +112,6 @@ export const Login = async(req,res) =>{
     }
 }
 
-// Refresh access token
-export const refreshToken = async(req,res) => {
-    const refreshToken = req.cookies.refreshToken;
-    if (!refreshToken)
-        return res.status(401).json({msg:"Unauthorized."});
-    try {
-        const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-        const user = await User.findByPk(decoded.id);
-        if (!user || user.refresh_token !== refreshToken)
-            return res.status(401).json({msg:"Unauthorized."});
-        const accessToken = jwt.sign({id: user.id, email: user.email, no_hp: user.no_hp, nama: user.nama, provinsi: user.provinsi}, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '30d'
-        });
-        res.json({accessToken});
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({msg:"Server error."});
-    }
-}
-
 // User logout
 export const Logout = async(req, res)=>{
     const refreshToken = req.cookies.refreshToken;

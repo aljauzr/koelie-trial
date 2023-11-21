@@ -18,7 +18,7 @@ router.post('/logout', Logout);
 router.get('/users', getAllUser);
 router.get('/users/:id', getUserById);
 
-// Events Routes
+// Kuli Routes
 router.get("/kuli", getAllKuli);
 router.get("/kuli/:id", getKuliById);
 
