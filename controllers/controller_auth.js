@@ -5,7 +5,7 @@ import validator from "validator";
 
 // User registration
 export const Register = async(req,res) => {
-    const { email, no_hp, password, confPassword, nama, provinsi} =  req.body;
+    const { email, no_hp, password, confPassword, nama, provinsi, kota} =  req.body;
 
     // Duplicate email check
     const emailAlreadyExist = await User.findOne({
@@ -54,7 +54,8 @@ export const Register = async(req,res) => {
             no_hp: no_hp,
             password: hashPassword,
             nama: nama,
-            provinsi: provinsi
+            provinsi: provinsi,
+            kota: kota
         });
         res.json({msg:"Registration successful."})
     } catch (error) {
@@ -67,7 +68,7 @@ export const Register = async(req,res) => {
     }
 }
 
-// User login
+// User Login
 export const Login = async(req,res) =>{
     try {
         const user = await User.findAll({
@@ -85,18 +86,16 @@ export const Login = async(req,res) =>{
         const no_hp = user[0].no_hp;
         const nama = user[0].nama;
         const provinsi = user[0].provinsi;
-        const accessToken = jwt.sign({id, email, no_hp, nama, provinsi}, process.env.ACCESS_TOKEN_SECRET, {
+        const kota = user[0].kota;
+        const accessToken = jwt.sign({id, email, no_hp, nama, provinsi, kota}, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: '30d'
         });
-        const refreshToken = jwt.sign({id, email, no_hp, nama, provinsi}, process.env.REFRESH_TOKEN_SECRET, {
-            expiresIn: '30d'
-        });
-        await User.update({refresh_token: refreshToken}, {
+        await User.update({access_token: accessToken}, {
             where:{
                 id: id
             }
         });
-        res.cookie('refreshToken', refreshToken, {
+        res.cookie('accessToken', accessToken, {
             httpOnly: true,
             maxAge: 24*60*60*1000,
             //secure: true
@@ -112,22 +111,22 @@ export const Login = async(req,res) =>{
     }
 }
 
-// User logout
+// User Logout
 export const Logout = async(req, res)=>{
-    const refreshToken = req.cookies.refreshToken;
-    if(!refreshToken) return res.sendStatus(204);
+    const accessToken = req.cookies.accessToken;
+    if(!accessToken) return res.sendStatus(204);
     const user = await User.findAll({
         where: {
-            refresh_token: refreshToken
+            access_token: accessToken
         }
     });
     if(!user[0]) return res.sendStatus(204);
     const id=user[0].id;
-    await User.update({refresh_token:null},{
+    await User.update({access_token:null},{
         where:{
             id: id
         }
     });
-    res.clearCookie('refreshToken');
+    res.clearCookie('accessToken');
     res.sendStatus(204);
 }

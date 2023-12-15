@@ -9,6 +9,7 @@ export const getAllUser = async(req, res) => {
               'no_hp',
               'nama',
               'provinsi',
+              'kota'
           ]
       });
       res.json(user);
@@ -28,6 +29,7 @@ export const getUserById = async(req,res) => {
               'no_hp',
               'nama',
               'provinsi',
+              'kota'
           ]
       });
       if (!user) {

@@ -3,8 +3,8 @@ import db from "../database/database.js";
 
 const { DataTypes } = Sequelize;
 
-const Kuli = db.define(
-  "kuli",
+const Pekerja = db.define(
+  "pekerja",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -14,6 +14,11 @@ const Kuli = db.define(
     nama: {
       type: DataTypes.TEXT,
       allowNull: true,
+    },
+    tipe: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      defaultValue: "Kuli",
     },
     deskripsi: {
       type: DataTypes.TEXT,
@@ -67,4 +72,4 @@ const Kuli = db.define(
   }
 );
 
-export default Kuli;
+export default Pekerja;

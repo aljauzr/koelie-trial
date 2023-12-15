@@ -19,11 +19,11 @@ const UserSuka = db.define(
         key: 'id'
       }
     },
-    kuli_id: {
+    pekerja_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'kuli',
+        model: 'pekerja',
         key: 'id'
       }
     },

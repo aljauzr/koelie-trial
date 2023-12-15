@@ -1,9 +1,8 @@
 import express from "express";
 import { verifyToken } from "../middleware/VerifyToken.js";
-import { refreshToken } from "../controllers/controller_refreshtoken.js";
 import { Register, Login, Logout } from "../controllers/controller_auth.js";
 import { getAllUser, getUserById } from "../controllers/controller_user.js";
-import { getAllKuli, getKuliById } from "../controllers/controller_kuli.js";
+import { getAllPekerja, getPekerjaById, getAllKuli, getAllMandor } from "../controllers/controller_pekerja.js";
 import { getUserSuka, postUserSuka, deleteUserSuka } from "../controllers/controller_user_suka.js";
 
 const router = express.Router();
@@ -11,16 +10,17 @@ const router = express.Router();
 // Authentication Routes
 router.post('/register', Register);
 router.post('/login', Login);
-router.get('/token', refreshToken);
 router.post('/logout', Logout);
 
 // User Routes
 router.get('/users', getAllUser);
 router.get('/users/:id', getUserById);
 
-// Kuli Routes
+// Pekerja Routes
+router.get("/pekerja", getAllPekerja);
+router.get("/pekerja/:id", getPekerjaById);
 router.get("/kuli", getAllKuli);
-router.get("/kuli/:id", getKuliById);
+router.get("/mandor", getAllMandor);
 
 // User Suka Routes
 router.get("/users/:user_id/disukai", getUserSuka);

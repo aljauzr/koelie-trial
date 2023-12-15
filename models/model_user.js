@@ -31,7 +31,11 @@ const User = db.define(
       type: DataTypes.STRING(255),
       allowNull: true,
     },
-    refresh_token: {
+    kota: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
+    access_token: {
       type: DataTypes.TEXT,
       allowNull: true,
     },

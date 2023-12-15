@@ -1,5 +1,5 @@
 import UserSuka from "../models/model_user_suka.js";
-import Kuli from "../models/model_kuli.js";
+import Pekerja from "../models/model_pekerja.js";
 
 export const getUserSuka = async (req, res) => {
   try {
@@ -11,17 +11,17 @@ export const getUserSuka = async (req, res) => {
     if (!userSuka) {
       return res.status(404).json({ message: "User likes not found" });
     }
-    const kuliIds = userSuka.map((like) => like.kuli_id);
-    const showKuli = await Kuli.findAll({
+    const pekerjaIds = userSuka.map((like) => like.pekerja_id);
+    const showPekerja = await Pekerja.findAll({
       where: {
-        id: kuliIds
+        id: pekerjaIds
       },
-      order: [['id', 'DESC']] // Sorts response (descending) by the 'id' column in the 'kuli' table
+      order: [['id', 'DESC']] // Sorts response (descending) by the 'id' column in the 'pekerja' table
     });
-    if (!showKuli) {
-      return res.status(404).json({ message: "Kuli not found" });
+    if (!showPekerja) {
+      return res.status(404).json({ message: "Pekerja not found" });
     }
-    res.status(200).json(showKuli);
+    res.status(200).json(showPekerja);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
@@ -33,20 +33,20 @@ export const postUserSuka = async (req, res) => {
     const likeAlreadyExist = await UserSuka.findOne({
       where: {
         user_id: req.params.user_id,
-        kuli_id: req.body.kuli_id
+        pekerja_id: req.body.pekerja_id
       }
     });
     if (likeAlreadyExist) {
-      return res.status(400).json({ message: "Kuli sudah dilike oleh user." });
+      return res.status(400).json({ message: "Pekerja sudah dilike oleh user." });
     }
 
     const userSuka = await UserSuka.create({
       user_id: req.params.user_id,
-      kuli_id: req.body.kuli_id
+      pekerja_id: req.body.pekerja_id
     });
 
-    // Update the like_count column in the Kuli table
-    await Kuli.increment('jumlah_suka', { where: { id: req.body.kuli_id } });
+    // Update the like_count column in the Pekerja table
+    await Pekerja.increment('jumlah_suka', { where: { id: req.body.pekerja_id } });
 
     res.status(201).json(userSuka);
   } catch (error) {
@@ -60,7 +60,7 @@ export const deleteUserSuka = async (req, res) => {
     const userSukaExist = await UserSuka.findOne({
       where: {
         user_id: req.params.user_id,
-        kuli_id: req.params.kuli_id
+        pekerja_id: req.params.pekerja_id
       }
     });
     if (!userSukaExist) {
@@ -70,12 +70,12 @@ export const deleteUserSuka = async (req, res) => {
     await UserSuka.destroy({
       where: {
         user_id: req.params.user_id,
-        kuli_id: req.params.kuli_id
+        pekerja_id: req.params.pekerja_id
       }
     });
 
-    // Update the like_count column in the Kuli table by decrementing
-    await Kuli.decrement('jumlah_suka', { where: { id: req.params.kuli_id } });
+    // Update the like_count column in the Pekerja table by decrementing
+    await Pekerja.decrement('jumlah_suka', { where: { id: req.params.pekerja_id } });
 
     res.status(200).json({ message: "User like berhasil dihapus." });
   } catch (error) {
